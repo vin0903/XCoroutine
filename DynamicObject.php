@@ -97,11 +97,10 @@
          */
         public function __call($name, $args){
             
-            $args = implode("\", \"", $args);
-            $args = "\"".$args."\"";
-            $func = $this->v[$name];
-            
-            return eval("return \$func($args);");
+            if(method_exists($this, $name)){
+                return call_user_func_array(array($this, $name), $args);
+            }
+            return false;
             
         }
         
